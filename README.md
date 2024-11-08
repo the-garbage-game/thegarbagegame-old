@@ -96,7 +96,7 @@ $ git checkout main
 $ git branch -d roboisaac11-bugfix-auth_failure
 ```
 
-And because the `main` branch was modified, to get the lasted code on my computer:
+And because the `main` branch was modified, to get the lasted code on your computer:
 ```cmd
 git pull
 ```
