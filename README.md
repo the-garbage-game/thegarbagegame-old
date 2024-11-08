@@ -67,7 +67,7 @@ Great, now we can move on.
 ### Pull Requests
 All of that code that you worked on is in a separate branch than the main branch. So we need to merge it over. We do this with **pull requests**. Basically all were doing is making a request on Github saying, "I want this code to be included into the actual project," and then if another member approves your code, it's good to go! Here is how to file a PR:
 
-1. On [The Garbage Game Github repo](https://github.com/the-garbage-game/), click the `Pull Requests` tab on the navbar
+1. On The Garbage Game Github repo, click the `Pull Requests` tab on the navbar
 2. You should see a info box appear saying something like: `<branch name> had recent pushes`. Click the `Compare & pull request` button.
    - If that doesn't show up, click `New pull request`
    - You should see two dropdown menus, one saying `base: main` and the other `compare: main`. Leave the first one as `base: main`, but set the other one to the branch with your new code
