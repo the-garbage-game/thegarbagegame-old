@@ -75,4 +75,28 @@ All of that code that you worked on is in a separate branch than the main branch
 4. You don't have to, but if you want to describe your changes in more detail you can add a description
 5. Once your done, click `Create pull request`
 
-Great, now your PR is ready! Just wait for another person to approve your code, and it will be merged into `main`!
+Great, now your PR is ready! Just wait for another person to approve your code, and it will be merged into `main`! Once it has been merged, the old branch with your code can be deleted. Back on you local computer, first we need to switch back to the `main` branch with:
+
+```cmd
+git checkout main
+```
+
+And now use this command to delete the old branch:
+
+```cmd
+git branch -d <branch name>
+```
+> [!NOTE]
+> This command will only delete the branch if it has been fully merged. If you want to delete a branch even if it has not been merged, run
+> `git branch -D <branch name>` with a capital `D`
+
+So if I just made an edit in a branch `roboisaac11-bugfix-auth_failure` and it just got merged, I would run:
+```cmd
+$ git checkout main
+$ git branch -d roboisaac11-bugfix-auth_failure
+```
+
+And because the `main` branch was modified, to get the lasted code on my computer:
+```cmd
+git pull
+```
