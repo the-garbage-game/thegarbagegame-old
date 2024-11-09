@@ -94,6 +94,9 @@ $ git push -u origin roboisaac11-bugfix-auth_system
 
 You only need to have the `-u origin roboisaac11-bugfix-auth_system` part once for every branch. So If you want to push another thing later onto the same branch, you can just run `git push` and it will automatically push to the same branch.
 
+> [!IMPORTANT]
+> Make sure to run the `git add .` command and the `git commit -m` command. These are the commands that actually add your code to the branch.
+
 Great, now we can move on.
 
 ### Pull Requests
