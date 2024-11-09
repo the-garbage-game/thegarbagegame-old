@@ -35,7 +35,7 @@ git pull
 > [!IMPORTANT]
 > Make sure you are in the `main` branch. In VSCode the branch is displayed in the bottom left, but you can also check with `git branch --show-current`. To change your branch to `main`, run `git checkout main`.
 
-Now that you have the current code you can almost begin programming. First you will need to create a new branch for you your modifications. To create a new branch, run:
+Now that you have the current code you can almost begin programming. First you will need to create a new branch for your modifications. To create a new branch, run:
 ```cmd
 git checkout -b <branch-name>
 ```
