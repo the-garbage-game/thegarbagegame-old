@@ -33,7 +33,7 @@ Open up your project directory in VS Code. If you do not currently have the proj
 git clone https://github.com/the-garbage-game/thegarbagegame-webapp.git
 ```
 
-To download the folder into your current directory.
+to download the folder into your current directory.
 
 To make sure the code in your local project is up-to-date, run this command:
 ```cmd
