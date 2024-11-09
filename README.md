@@ -27,7 +27,15 @@ The following sections will provide more detail on these steps.
 ### Adding features
 To ensure all code is working correctly and efficiently, **we do not write code directly on the `main` branch**. When you want to work on a part of the project, the first thing you should do is create a new branch with the up-to-date code on `main`.
 
-Open up your project directory in VS Code. If you do not currently have the project, press `Code` > `Download Zip` on the [`main branch`](https://github.com/the-garbage-game/thegarbagegame-webapp/tree/main). To make sure the code in your local project is up-to-date, run this command:
+Open up your project directory in VS Code. If you do not currently have the project, press `Code` > `Download Zip` on the [`main branch`](https://github.com/the-garbage-game/thegarbagegame-webapp/tree/main), or run
+
+```cmd
+git clone https://github.com/the-garbage-game/thegarbagegame-webapp.git
+```
+
+To download the folder into your current directory.
+
+To make sure the code in your local project is up-to-date, run this command:
 ```cmd
 git pull
 ```
