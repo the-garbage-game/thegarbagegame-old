@@ -1,4 +1,4 @@
-name: Update Latest
+name: Continuous Deployment
 on:
   push:
     branches:
@@ -19,16 +19,16 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Fetch and checkout the latest branch
+      - name: Fetch and checkout the branch current
         run: |
-          # Fetch the latest branch to ensure it exists remotely
-          git fetch origin latest
-          # Check out the latest branch locally
-          git checkout latest || git checkout -b latest  # Create the branch if it doesn't exist
+          # Fetch the current branch to ensure it exists remotely
+          git fetch origin current
+          # Check out the current branch locally
+          git checkout current || git checkout -b current  # Create the branch if it doesn't exist
 
-      - name: Remove the existing dist folder in latest
+      - name: Remove the existing dist folder in current
         run: |
-          rm -rf dist  # Remove any existing dist folder in the latest branch
+          rm -rf dist  # Remove any existing dist folder in the current branch
 
       - name: Checkout dist/the-garbage-game/browser from main
         run: |
@@ -50,9 +50,9 @@ jobs:
             echo "No files to move in dist/the-garbage-game/browser"
           fi
 
-      - name: Commit and push changes to latest branch
+      - name: Commit and push changes to current branch
         run: |
           git add .  # Add all the files in the root directory
           git status  # Check if the files are being staged correctly
           git commit --allow-empty -m "Update dist folder from main"
-          git push origin latest
+          git push origin current
