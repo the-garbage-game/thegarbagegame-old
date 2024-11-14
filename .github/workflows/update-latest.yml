@@ -1,5 +1,3 @@
-name: Update Latest
-
 on:
   push:
     branches:
@@ -10,30 +8,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout the test branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: update-latest-test  # Ensure the test branch is checked out
 
       - name: Set up Git credentials
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Copy dist folder to latest branch
+      - name: Fetch and checkout the latest branch
         run: |
-          # Fetch and switch to the latest branch (shallow clone)
+          # Fetch the latest branch to ensure it exists remotely
           git fetch origin latest
-          git checkout latest
+          # Check out the latest branch locally
+          git checkout latest || git checkout -b latest  # Create the branch if it doesn't exist
 
-          # Remove the existing dist folder
-          rm -rf dist
+      - name: Remove the existing dist folder in latest
+        run: |
+          rm -rf dist  # Remove any existing dist folder in the latest branch
 
-          # Copy dist folder from main branch (latest commit only)
+      - name: Copy dist folder from update-latest-test
+        run: |
+          # Checkout the dist folder from the update-latest-test
           git checkout update-latest-test -- dist
 
       - name: Commit and push changes to latest branch
         run: |
           git add dist
-          git commit -m "Update dist folder from main"
+          git commit -m "Update dist folder from update-latest-test"
           git push origin latest
