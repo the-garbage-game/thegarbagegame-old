@@ -1,0 +1,58 @@
+name: Update Latest
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  copy-dist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the test branch
+        uses: actions/checkout@v4
+        with:
+          ref: main  # Ensure the test branch is checked out
+
+      - name: Set up Git credentials
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Fetch and checkout the latest branch
+        run: |
+          # Fetch the latest branch to ensure it exists remotely
+          git fetch origin latest
+          # Check out the latest branch locally
+          git checkout latest || git checkout -b latest  # Create the branch if it doesn't exist
+
+      - name: Remove the existing dist folder in latest
+        run: |
+          rm -rf dist  # Remove any existing dist folder in the latest branch
+
+      - name: Checkout dist/the-garbage-game/browser from main
+        run: |
+          # Checkout just the dist/the-garbage-game/browser folder from main
+          git checkout main -- dist/the-garbage-game/browser
+
+      - name: Verify contents of the folder
+        run: |
+          # Verify that the files exist in dist/the-garbage-game/browser
+          ls -R dist/the-garbage-game/browser || echo "No files found in dist/the-garbage-game/browser"
+
+      - name: Move the files from dist/the-garbage-game/browser to root
+        run: |
+          # If the files exist, move them to the root directory
+          if [ -d "dist/the-garbage-game/browser" ] && [ "$(ls -A dist/the-garbage-game/browser)" ]; then
+            mv dist/the-garbage-game/browser/* .  # Move files to the root
+            rmdir dist/the-garbage-game/browser || true  # Remove the empty directory if it exists
+          else
+            echo "No files to move in dist/the-garbage-game/browser"
+          fi
+
+      - name: Commit and push changes to latest branch
+        run: |
+          git add .  # Add all the files in the root directory
+          git status  # Check if the files are being staged correctly
+          git commit --allow-empty -m "Update dist folder from main"
+          git push origin latest
