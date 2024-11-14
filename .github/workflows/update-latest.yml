@@ -37,5 +37,5 @@ jobs:
       - name: Commit and push changes to latest branch
         run: |
           git add "dist/the-garbage-game/browser"
-          git commit -m "Update dist folder from update-latest-test"
+          git commit --allow-empty -m "Update dist folder from update-latest-test"
           git push origin latest
