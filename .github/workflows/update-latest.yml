@@ -29,12 +29,25 @@ jobs:
         run: |
           rm -rf dist  # Remove any existing dist folder in the latest branch
 
+      - name: Checkout dist/the-garbage-game/browser from update-latest-test
+        run: |
+          # Checkout just the dist/the-garbage-game/browser folder from update-latest-test
+          git checkout update-latest-test -- dist/the-garbage-game/browser
+
+      - name: Verify contents of the folder
+        run: |
+          # Verify that the files exist in dist/the-garbage-game/browser
+          ls -R dist/the-garbage-game/browser || echo "No files found in dist/the-garbage-game/browser"
+
       - name: Move the files from dist/the-garbage-game/browser to dist
         run: |
-          # Move the files from dist/the-garbage-game/browser to dist
-          mv dist/the-garbage-game/browser/* dist/the-garbage-game/
-          # Remove the empty browser directory (if you want to)
-          rmdir dist/the-garbage-game/browser || true  # Removes empty directory if it exists
+          # If the files exist, move them
+          if [ -d "dist/the-garbage-game/browser" ] && [ "$(ls -A dist/the-garbage-game/browser)" ]; then
+            mv dist/the-garbage-game/browser/* dist/the-garbage-game/
+            rmdir dist/the-garbage-game/browser || true  # Remove the empty directory if exists
+          else
+            echo "No files to move in dist/the-garbage-game/browser"
+          fi
 
       - name: Commit and push changes to latest branch
         run: |
