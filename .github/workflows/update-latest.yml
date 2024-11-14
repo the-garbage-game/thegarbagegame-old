@@ -2,7 +2,7 @@ name: Update Latest
 on:
   push:
     branches:
-      - update-latest-test
+      - main
 
 jobs:
   copy-dist:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout the test branch
         uses: actions/checkout@v4
         with:
-          ref: update-latest-test  # Ensure the test branch is checked out
+          ref: main  # Ensure the test branch is checked out
 
       - name: Set up Git credentials
         run: |
@@ -30,10 +30,10 @@ jobs:
         run: |
           rm -rf dist  # Remove any existing dist folder in the latest branch
 
-      - name: Checkout dist/the-garbage-game/browser from update-latest-test
+      - name: Checkout dist/the-garbage-game/browser from main
         run: |
-          # Checkout just the dist/the-garbage-game/browser folder from update-latest-test
-          git checkout update-latest-test -- dist/the-garbage-game/browser
+          # Checkout just the dist/the-garbage-game/browser folder from main
+          git checkout main -- dist/the-garbage-game/browser
 
       - name: Verify contents of the folder
         run: |
@@ -54,5 +54,5 @@ jobs:
         run: |
           git add .  # Add all the files in the root directory
           git status  # Check if the files are being staged correctly
-          git commit --allow-empty -m "Update dist folder from update-latest-test"
+          git commit --allow-empty -m "Update dist folder from main"
           git push origin latest
