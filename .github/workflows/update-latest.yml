@@ -39,19 +39,19 @@ jobs:
           # Verify that the files exist in dist/the-garbage-game/browser
           ls -R dist/the-garbage-game/browser || echo "No files found in dist/the-garbage-game/browser"
 
-      - name: Move the files from dist/the-garbage-game/browser to dist
+      - name: Move the files from dist/the-garbage-game/browser to root
         run: |
-          # If the files exist, move them
+          # If the files exist, move them to the root directory
           if [ -d "dist/the-garbage-game/browser" ] && [ "$(ls -A dist/the-garbage-game/browser)" ]; then
-            mv dist/the-garbage-game/browser/* dist/the-garbage-game/
-            rmdir dist/the-garbage-game/browser || true  # Remove the empty directory if exists
+            mv dist/the-garbage-game/browser/* .  # Move files to the root
+            rmdir dist/the-garbage-game/browser || true  # Remove the empty directory if it exists
           else
             echo "No files to move in dist/the-garbage-game/browser"
           fi
 
       - name: Commit and push changes to latest branch
         run: |
-          git add "dist/the-garbage-game/*"  # Add the moved files
+          git add .  # Add all the files in the root directory
           git status  # Check if the files are being staged correctly
           git commit --allow-empty -m "Update dist folder from update-latest-test"
           git push origin latest
