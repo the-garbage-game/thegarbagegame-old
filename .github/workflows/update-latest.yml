@@ -29,13 +29,14 @@ jobs:
         run: |
           rm -rf dist  # Remove any existing dist folder in the latest branch
 
-      - name: Copy dist folder from update-latest-test
+      - name: Copy dist/the-garbage-game/browser folder from update-latest-test
         run: |
-          # Checkout the dist folder from the update-latest-test
-          git checkout update-latest-test -- dist/the-garbage-game/browser
+          # Checkout only the dist/the-garbage-game/browser folder from update-latest-test
+          git restore --source=update-latest-test dist/the-garbage-game/browser
 
       - name: Commit and push changes to latest branch
         run: |
           git add "dist/the-garbage-game/browser"
+          git status  # Check if the files are being staged correctly
           git commit --allow-empty -m "Update dist folder from update-latest-test"
           git push origin latest
