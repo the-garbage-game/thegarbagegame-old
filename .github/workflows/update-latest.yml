@@ -1,0 +1,39 @@
+name: Update Latest
+
+on:
+  push:
+    branches:
+      - update-latest-test
+
+jobs:
+  copy-dist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Git credentials
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Copy dist folder to latest branch
+        run: |
+          # Fetch and switch to the latest branch (shallow clone)
+          git fetch origin latest
+          git checkout latest
+
+          # Remove the existing dist folder
+          rm -rf dist
+
+          # Copy dist folder from main branch (latest commit only)
+          git checkout update-latest-test -- dist
+
+      - name: Commit and push changes to latest branch
+        run: |
+          git add dist
+          git commit -m "Update dist folder from main"
+          git push origin latest
