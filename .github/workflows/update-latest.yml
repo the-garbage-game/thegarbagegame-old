@@ -32,10 +32,10 @@ jobs:
       - name: Copy dist folder from update-latest-test
         run: |
           # Checkout the dist folder from the update-latest-test
-          git checkout update-latest-test -- dist
+          git checkout update-latest-test -- update-latest-test
 
       - name: Commit and push changes to latest branch
         run: |
-          git add dist
+          git add update-latest-test
           git commit -m "Update dist folder from update-latest-test"
           git push origin latest
