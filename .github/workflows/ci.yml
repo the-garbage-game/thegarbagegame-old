@@ -1,4 +1,5 @@
 name: Angular CI
+
 on:
   push:
     branches:
@@ -27,27 +28,38 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
+      - name: Create and checkout a temp branch for the build
+        run: |
+          git checkout -b build-temp  # Create and switch to a temporary branch for the build
+
       - name: Install dependencies
         run: npm install
 
       - name: Build the Angular project
         run: npm run build -- --base-href="/thegarbagegame-webapp/"
 
-      - name: Put build output in the root of 'current'
+      - name: Commit build output in the temp branch
+        run: |
+          git add dist/the-garbage-game/browser/
+          git commit --allow-empty -m "Add build output"
+
+      - name: Checkout the current branch
         run: |
           git fetch origin current
-          git checkout current || git checkout -b current  # Create the branch if it doesn't exist
+          git checkout current
 
-          # Remove the existing contents of the dist directory (optional)
-          rm -rf *
+      - name: Move build output branch current
+        run: |
+          git checkout build-temp -- dist/the-garbage-game/browser  # Copy build files from the temporary branch
+          mv dist/the-garbage-game/browser/* .  # Move files to the root
+          rm -rf dist  # Clean up unnecessary build directory
 
-          git checkout main -- dist/the-garbage-game/browser
-
-          # Move the contents of dist/the-garbage-game/browser to the root
-          mv ./dist/the-garbage-game/browser/* .
-
-      - name: Commit build output
+      - name: Push build output to branch current
         run: |
           git add .
           git commit --allow-empty -m "Deploy Angular build output"
           git push origin current
+
+      - name: Delete the temp branch
+        run: |
+          git branch -D build-temp
