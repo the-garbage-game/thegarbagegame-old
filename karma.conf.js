@@ -1,8 +1,6 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
-process.env.CHROME_BIN = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
-
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -33,22 +31,9 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
-    singleRun: true,
     reporters: ['progress'],
-    browsers: ['Edge'],
-    customLaunchers: {
-      Edge: {
-        base: 'Chrome', // Use Chrome launcher
-        flags: [
-          '--headless', 
-          '--disable-gpu', 
-          '--remote-debugging-port=9222',
-          '--no-sandbox', // Optional: for avoiding security sandbox issues
-          '--disable-software-rasterizer'
-        ],
-        executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' // Path to Edge executable
-      }
-    },
-    restartOnFileChange: false
+    browsers: ['ChromeHeadless'],
+    restartOnFileChange: false,
+    singleRun: true
   });
 };
