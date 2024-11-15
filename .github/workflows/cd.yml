@@ -18,11 +18,25 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Set up Git credentials
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
       - name: Install dependencies
         run: npm install
 
       - name: Run ng deploy
         run: npm run build -- --base-href "/thegarbagegame-webapp/"
+
+      - name: Commit build output to current branch
+        run: |
+          git checkout main
+          git add dist/the-garbage-game/browser/
+          git commit --allow-empty -m "Deploy Angular build output"
+
+          # Push changes to the remote repository
+          git push origin main
     
   deploy:
     runs-on: ubuntu-latest
