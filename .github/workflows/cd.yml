@@ -5,9 +5,11 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
+    concurrency:
+      group: build
+      cancel-in-progress: true
     steps:
       - name: Checkout the test branch
         uses: actions/checkout@v4
@@ -23,11 +25,13 @@ jobs:
         run: npm install
 
       - name: Run ng deploy
-        run: ng deploy --base-href=/thegarbagegame-webapp/
+        run: npm build -- --base-href "/thegarbagegame-webapp/"
     
   copy-dist:
     runs-on: ubuntu-latest
-
+    concurrency:
+      group: copy-dist
+      cancel-in-progress: true
     steps:
       - name: Checkout the test branch
         uses: actions/checkout@v4
