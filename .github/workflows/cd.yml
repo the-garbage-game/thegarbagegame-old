@@ -1,4 +1,4 @@
-name: Continuous Deployment
+name: Angular CD
 on:
   push:
     branches:
