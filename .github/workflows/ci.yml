@@ -41,6 +41,8 @@ jobs:
           # Remove the existing contents of the dist directory (optional)
           rm -rf *
 
+          git checkout main -- dist/the-garbage-game/browser
+
           # Move the contents of dist/the-garbage-game/browser to the root
           mv ./dist/the-garbage-game/browser/* .
 
