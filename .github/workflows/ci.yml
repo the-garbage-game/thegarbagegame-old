@@ -9,7 +9,28 @@ on:
       - main
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the test branch
+        uses: actions/checkout@v4
+        with:
+          ref: main 
+          
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadless
+
   build:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +61,7 @@ jobs:
 
       - name: Commit build output in the temp branch
         run: |
+          echo "node_modules/" >> .gitignore
           git add dist/the-garbage-game/browser/
           git commit --allow-empty -m "Add build output"
 
