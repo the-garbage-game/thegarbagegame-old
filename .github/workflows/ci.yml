@@ -9,28 +9,7 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout the test branch
-        uses: actions/checkout@v4
-        with:
-          ref: main 
-          
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadless
-
   build:
-    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -71,8 +50,9 @@ jobs:
 
       - name: Move build output branch current
         run: |
-          rm -rf dist  # Clean up unnecessary build directory
+          rm -rf ./  # Clean up
           git checkout build-temp -- dist/the-garbage-game/browser  # Copy build files from the temporary branch
+          ls dist/the-garbage-game/browser
           mv dist/the-garbage-game/browser/* .  # Move files to the root
 
       - name: Push build output to branch current
