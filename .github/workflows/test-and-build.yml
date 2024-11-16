@@ -9,6 +9,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      
       - name: Run tests
         uses: ./.github/actions/test
 
