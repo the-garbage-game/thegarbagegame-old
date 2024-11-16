@@ -50,7 +50,7 @@ jobs:
 
       - name: Move build output branch current
         run: |
-          rm -rf ./  # Clean up
+          rm -rf *  # Clean up
           git checkout build-temp -- dist/the-garbage-game/browser  # Copy build files from the temporary branch
           ls dist/the-garbage-game/browser
           mv dist/the-garbage-game/browser/* .  # Move files to the root
