@@ -61,9 +61,8 @@ jobs:
 
       - name: Commit build output in the temp branch
         run: |
-          echo "node_modules/" >> .gitignore
           git add dist/the-garbage-game/browser/
-          git commit --allow-empty -m "Add build output"
+          git commit -m "Add build output"
 
       - name: Checkout the current branch
         run: |
@@ -72,9 +71,9 @@ jobs:
 
       - name: Move build output branch current
         run: |
+          rm -rf dist  # Clean up unnecessary build directory
           git checkout build-temp -- dist/the-garbage-game/browser  # Copy build files from the temporary branch
           mv dist/the-garbage-game/browser/* .  # Move files to the root
-          rm -rf dist  # Clean up unnecessary build directory
 
       - name: Push build output to branch current
         run: |
