@@ -1,6 +1,13 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+//
+// If you want to run local tests on the Edge browser uncomment the
+// line below. (Don't forget to comment out again when you're done)
+//
+
+// process.env.CHROME_BIN = "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+
 module.exports = function (config) {
   config.set({
     basePath: '',
