@@ -3,7 +3,7 @@
 
 > [!WARNING]
 > This is the **old** version of the repo. Nothing is being update here anymore.
-> Go tot he new one for the current version
+> Go to the new one for the current version
 
 ## About
 The Garbage Game was originally an entry for the [Caring for our Watersheds](https://caringforourwatersheds.com/) contest. It's purpose is to alert people of areas in their community with lots of litter, and reward people for cleaning it up. For more information on the project, check out our [proposal](https://docs.google.com/document/d/1k0FpT4Au05AOyUyrp7CIQXZwANTp-ZvLDw6DBLETVSo/edit?usp=sharing).
